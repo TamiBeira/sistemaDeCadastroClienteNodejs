@@ -2,11 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-
-
-
-const Cliente = require('./Cliente');
-
+const Clientes = require('./Clientes.js');
 
 
 const app = express();
@@ -61,7 +57,7 @@ app.post('/cadastro-cliente', (req, res)=>{
     }
 
 //SALVAR NO BANCO DE DADOS
-const cliente = new Cliente({
+const clientes = new Clientes({
     nome,
     cpf,
     telefone,
@@ -69,7 +65,7 @@ const cliente = new Cliente({
     cep,
     bairro
 })
-cliente.save().then(()=>{
+clientes.save().then(()=>{
     res.statusCode = 200;
     res.json({msg: 'Cadastro realizado com sucesso!'});
 }).catch(err =>{
@@ -82,7 +78,7 @@ cliente.save().then(()=>{
 app.get('/busca-cliente/:cpf', (req, res)=>{
     let cpf = req.params.cpf;
 
-    Cliente.findOne({'cpf': cpf}).then(cpf=>{
+    Clientes.findOne({'cpf': cpf}).then(cpf=>{
         if(cpf != undefined){
             res.statusCode = 200;
             res.json(cpf);
@@ -98,7 +94,7 @@ app.get('/busca-cliente/:cpf', (req, res)=>{
 //ROTA - DELETAR CLIENTE
 app.delete('/deletar-cliente/:id', (req, res)=>{
     let id = req.params.id;
-    Cliente.deleteOne({'_id': id}).then(deletar =>{
+    Clientes.deleteOne({'_id': id}).then(deletar =>{
         res.statusCode = 200;
         res.json({msg: 'Cadastro deletado com sucesso!'});
     }).catch(err =>{
@@ -110,7 +106,7 @@ app.delete('/deletar-cliente/:id', (req, res)=>{
 //ROTA - EDITAR CLIENTE
 app.patch('/editar-cliente/:id', (req, res)=>{
     let id = req.params.id;
-    Cliente.findOneAndUpdate({'_id': id}, req.body).then(editar =>{
+    Clientes.findOneAndUpdate({'_id': id}, req.body).then(editar =>{
         res.json({msg:'Cadastro atualizado com sucesso!'});
     }).catch(err =>{
         res.statusCode = 500;

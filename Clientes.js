@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Cliente = mongoose.model('Cliente', {
+const Clientes = mongoose.model('Clientes', {
     nome: String,
     cpf: String,
     telefone: String,
@@ -9,4 +9,4 @@ const Cliente = mongoose.model('Cliente', {
     bairro: String
     });
 
-module.exports = Cliente;
+module.exports = Clientes;
